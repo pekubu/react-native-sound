@@ -7,7 +7,7 @@ import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnErrorListener;
 import android.net.Uri;
 import android.media.AudioManager;
-
+import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -45,6 +45,9 @@ public class RNSoundModule extends ReactContextBaseJavaModule implements AudioMa
     WritableMap params = Arguments.createMap();
     params.putBoolean("isPlaying", isPlaying);
     params.putDouble("playerKey", playerKey);
+    reactContext
+                .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+                .emit("onPlayChange", params);
   }
 
   @Override
